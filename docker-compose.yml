@@ -1,0 +1,15 @@
+version: '3'
+services:
+  finance-api:
+    image: lovexiaod/finance-api:latest
+    container_name: finance-api
+    restart: always
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      # 如果您希望生成的图片在宿主机可见，取消下面注释
+      # - ./public:/app/public
+      # 挂载日志时间（保持容器时间同步）
+      - /etc/localtime:/etc/localtime:ro
