@@ -1,0 +1,47 @@
+name: Update Dashboard
+
+on:
+  schedule:
+    # 每小时运行一次 (第0分钟)
+    - cron: '0 * * * *'
+  # 允许手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install System Dependencies for Canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Dashboard Image
+        run: npm start
+        env:
+          # 如果有 API Key 等环境变量，可以在这里配置
+          # YAHOO_FINANCE_API_KEY: ${{ secrets.YAHOO_FINANCE_API_KEY }}
+          TZ: 'Asia/Shanghai'
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update dashboard image [skip ci]"
+          file_pattern: "public/*.png"
+          branch: main

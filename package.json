@@ -1,11 +1,11 @@
 {
   "name": "finace-api",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts"
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,16 +17,12 @@
     "canvas": "^3.2.1",
     "cheerio": "^1.2.0",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1",
     "iconv-lite": "^0.7.2",
-    "node-cron": "^4.2.1",
     "sharp": "^0.34.5",
     "yahoo-finance2": "^3.13.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
     "@types/node": "^25.1.0",
-    "@types/node-cron": "^3.0.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
